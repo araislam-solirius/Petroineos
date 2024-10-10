@@ -11,7 +11,7 @@
 
 - Clone this repository to your local machine
 - Create and activate a virtual environment
-- pip install -r requirements.txt
+- >> pip install -r requirements.txt
 - Create an Astro project using >> astro dev init
 - Run Airflow locally using >> astro dev start
 - Manually Trigger the dag pipeline to test
