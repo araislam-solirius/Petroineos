@@ -8,6 +8,7 @@
 * dags: contains the Airflow dag scripts to run the pipeline
 
 ## How to run
+(For simple Airflow runtime the code uses the Astro CLI)
 -- Prerequites: Must have docker installed
 
 
