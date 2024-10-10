@@ -180,3 +180,49 @@
 2024-10-09 20:12:46,599 - INFO - Retrived the last cahced Modied date: 2024-09-26 09:30:13+01:00 and last cached File Name: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx
 2024-10-09 20:12:46,704 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
 2024-10-09 20:12:46,704 - INFO - There is no new file for the Supply and use of crude oil, natural gas liquids, and feedstocks. 
+2024-10-10 00:22:40,162 - INFO - Retrived the last cahced Modied date: 2024-09-26 09:30:13+01:00 and last cached File Name: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx
+2024-10-10 00:22:40,391 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:22:40,391 - INFO - There is no new file for the Supply and use of crude oil, natural gas liquids, and feedstocks. 
+2024-10-10 00:24:00,153 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:24:00,285 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:24:00,499 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:24:00,499 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:24:00,733 - ERROR - Error occurred: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:29:02,249 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:29:02,563 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:29:02,667 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:29:02,667 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:33:19,617 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:33:19,951 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:33:20,137 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:33:20,137 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:40:12,604 - INFO - Retrived the last cahced Modied date: 2024-09-26 09:30:13+01:00 and last cached File Name: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx
+2024-10-10 00:40:12,894 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:40:12,894 - INFO - There is no new file for the Supply and use of crude oil, natural gas liquids, and feedstocks. 
+2024-10-10 00:40:45,050 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:40:45,139 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:40:45,239 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:40:45,240 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:40:45,374 - ERROR - Error occurred: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:42:24,439 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:42:24,537 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:42:24,616 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:42:24,616 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:42:56,909 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:42:56,991 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:42:57,075 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:42:57,075 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:43:40,323 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:43:40,585 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:43:40,676 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:43:40,676 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:43:40,722 - ERROR - Error occurred: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:45:12,791 - ERROR - Cache not found or malformed: [Errno 2] No such file or directory: 'include/cache.json'. Using default values
+2024-10-10 00:45:12,891 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:45:12,994 - INFO - File saved at: /Users/soliriusadmin211/Petroineos_/Raw_Files/Crude_Oil_Supply_Use_ET3.1_September_2024.xlsx
+2024-10-10 00:45:12,994 - INFO - Caching New file found: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx, caching last modified: 2024-09-26 09:30:13+01:00
+2024-10-10 00:45:12,995 - ERROR - Encountered an error: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:45:13,045 - ERROR - Error occurred: [Errno 2] No such file or directory: 'include/cache.json'
+2024-10-10 00:48:20,226 - INFO - Retrived the last cahced Modied date: 2024-09-26 09:30:13+01:00 and last cached File Name: https://assets.publishing.service.gov.uk/media/66f420ff080bdf716392e8c2/ET_3.1_SEP_24.xlsx
+2024-10-10 00:48:20,436 - INFO - The Latest URL Modiefied date retrived is 2024-09-26 09:30:13+01:00
+2024-10-10 00:48:20,436 - INFO - There is no new file for the Supply and use of crude oil, natural gas liquids, and feedstocks. 

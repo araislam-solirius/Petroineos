@@ -15,13 +15,13 @@ logger = logging.getLogger(__name__)
 # get the cached last modified and file_name
 
 url = "https://www.gov.uk/government/statistics/oil-and-oil-products-section-3-energy-trends"
-cache_file = 'cache.json'
+cache_file = os.path.join(os.getcwd(),'cache.json')
 
 def load_cache():
     """
     This function retrives the stored values for the last modifies data and latest file name from the url
     """
-    cache_file = 'cache.json'
+    cache_file = os.path.join(os.getcwd(),'cache.json')
     try:
         with open(cache_file,'r') as file:
             cache = json.load(file)
@@ -41,7 +41,7 @@ def save_cache(new_cached_last_modified,new_cached_file_name):
     """
     This function will update the stored values of the last modified data and last file name from the url
     """
-    cache_file = 'cache.json'
+    cache_file = os.path.join(os.getcwd(),'cache.json')
     cache_data = {
         'cached_last_modified' : new_cached_last_modified,
         'cached_file_name' : new_cached_file_name
@@ -78,6 +78,7 @@ def check_latest_data(url = 'https://www.gov.uk/government/statistics/oil-and-oi
         soup = BeautifulSoup(response.content, 'html.parser')
     except Exception as e:
         logger.error(f"There was an error gathering the html data {e}")
+        return False
 
     # Find all the relevant script tags
     script_tags = soup.find_all('script', type='application/ld+json')
@@ -116,10 +117,12 @@ def check_latest_data(url = 'https://www.gov.uk/government/statistics/oil-and-oi
 
                                     logger.info(f"Caching New file found: {item['contentUrl']}, caching last modified: {current_date_modified}")
                                     save_cache(str(current_date_modified),item['contentUrl'])
+                                    return True
                                 else:
                                     logger.info(f"No New file name found: file {item['contentUrl']} is the same as {cached_file_name}, last modified: {current_date_modified}")
                 else:
                     logger.info('There is no new file for the Supply and use of crude oil, natural gas liquids, and feedstocks. ')
+                    return False
 
         except json.JSONDecodeError as e:
             logger.error(f"Error parsing JSON: {e}")
@@ -135,7 +138,7 @@ def save_new_file(url,current_date_modified):
 
     month_year = current_date_modified.strftime('%B %Y').replace(' ','_')
 
-    save_path = os.path.join(os.getcwd(), 'Raw_Files', "".join(['Crude_Oil_Supply_Use_ET3.1_',month_year,'.xlsx']))
+    save_path = os.path.join(os.path.dirname(os.getcwd()), 'Raw_Files', "".join(['Crude_Oil_Supply_Use_ET3.1_',month_year,'.xlsx']))
 
     # Create the directory if it doesn't exist
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -147,19 +150,19 @@ def save_new_file(url,current_date_modified):
     if response:
         with open(save_path, 'wb') as file:
             file.write(response.content)  # Write the binary content to a file
-        print(f"File saved at: {save_path}")
+        logging.info(f"File saved at: {save_path}")
     else:
-        print(f"Failed to download file")
+        logging.warning(f"Failed to download file")
 
 
 
-check_latest_data()
+# check_latest_data()
 
 import glob
 # process raw files
 def get_latest_raw_file():
     # Get the latest file from the raw folder based on the created date
-    folder_path = 'Raw_Files/*.xlsx'
+    folder_path = os.path.join(os.path.dirname(os.getcwd()), 'Raw_Files', '*.xlsx')
     files = glob.glob(folder_path)
     return max(files,key=os.path.getctime)
 
@@ -176,31 +179,33 @@ def skip_rows(rows):
     except Exception as e:
         logger.error(f"failed to find the number of rows to skip: {e}")
 
-def get_Df():
+def get_Df(new_file):
     """
     This funciton will apply initial logic such as selecting the correct sheet for the data and skipping bad rows
 
     Return: DataFrame for further processing
     """
-    initial_rows = pd.read_excel(get_latest_raw_file(),sheet_name='Quarter')
-    rows_to_skip = skip_rows(initial_rows)
 
-    df = pd.read_excel(get_latest_raw_file(),sheet_name='Quarter',skiprows=rows_to_skip)
+    if new_file == True:
+        initial_rows = pd.read_excel(get_latest_raw_file(),sheet_name='Quarter')
+        rows_to_skip = skip_rows(initial_rows)
 
-    # Remove anything in square brackets (e.g., "[note]") from the DataFrame's values
-    df.replace(r"\[.*?\]",'',regex=True,inplace=True)
+        df = pd.read_excel(get_latest_raw_file(),sheet_name='Quarter',skiprows=rows_to_skip)
 
-    # clean Column and names and rename Column1 to Key
-    df.columns = [col.replace('\n', " ").strip() for col in df.columns]
-    df.rename(columns={'Column1':"Key"},inplace=True)
-    df.set_index("Key",inplace=True)
-    return df
+        # Remove anything in square brackets (e.g., "[note]") from the DataFrame's values
+        df.replace(r"\[.*?\]",'',regex=True,inplace=True)
+
+        # clean Column and names and rename Column1 to Key
+        df.columns = [col.replace('\n', " ").strip() for col in df.columns]
+        df.rename(columns={'Column1':"Key"},inplace=True)
+        df.set_index("Key",inplace=True)
+        return df
+    else:
+        return None
 
 
-df = get_Df()
+# df = get_Df()
 
-
-# 1.b) cleaned first column and make it the index
 
 def save_cleaned_file(df,file_name):
     """
@@ -208,33 +213,37 @@ def save_cleaned_file(df,file_name):
 
     Return: Saves the Dataframe as a csv file if it passes all the tests
     """
+    if df is not None:
 
-    clean_folder_path = os.path.join(os.getcwd(),'Clean_Files')
-    os.makedirs(clean_folder_path)
+        clean_folder_path = os.path.join(os.path.dirname(os.getcwd()),'Clean_Files')
+        os.makedirs(clean_folder_path,exist_ok=True)
 
-    index = df.index.values
+        index = df.index.values
 
-    try:
-        with open('cache.json','r') as file:
-            cache = json.load(file)
-            cached_index = cache['index']
-            cached_row_count = cache["row_count"]
-            assert np.array_equal(index, cached_index ) # Check the index matchs
-            assert(df.shape[0]==cached_row_count) # Check the row count matchs
-            assert df.isna().sum().sum()==0 # Check are there any missing values in the DataFrame
-    except (AssertionError, FileNotFoundError, json.JSONDecodeError) as e:
-        logging.error(f"Error occurred: {e}")
-        return  # Exit early, do not save the file
-    save_path = os.path.join(clean_folder_path,f"{file_name}.csv")
-    df.to_csv(save_path,index=False)
-    print(f"Cleaned DataFrame saved to {save_path}")
+        try:
+            with open(os.path.join(os.getcwd(),'cache.json'),'r') as file:
+                cache = json.load(file)
+                cached_index = cache['index']
+                cached_row_count = cache["row_count"]
+                assert np.array_equal(index, cached_index ) # Check the index matchs
+                assert(df.shape[0]==cached_row_count) # Check the row count matchs
+                assert df.isna().sum().sum()==0 # Check are there any missing values in the DataFrame
+        except (AssertionError, FileNotFoundError, json.JSONDecodeError) as e:
+            logging.error(f"Error occurred: {e}")
+            return  # Exit early, do not save the file
+        save_path = os.path.join(clean_folder_path,f"{file_name}.csv")
+        df.to_csv(save_path,index=False)
+        logging.info(f"Cleaned DataFrame saved to {save_path}")
+    else:
+        pass
 
-save_cleaned_file(df,'Clean_Crude_Oil_Supply_Use_ET3.1_September_2024')
+# save_cleaned_file(df,'Clean_Crude_Oil_Supply_Use_ET3.1_September_2024')
 
 
 
     
-
+if __name__ == "__main__":
+    pass
     
 
 
