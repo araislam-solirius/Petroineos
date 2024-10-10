@@ -28,7 +28,8 @@ The code Then check if it was the "Supply and use of crude oil, natural gas liqu
 Data Storage: When a new file is detected, it is downloaded and saved alongside the previous files in a raw file folder. Each new file includes the complete dataset, with an added column for the most recent quarter.
 File-Based Approach: Instead of updating an existing table or dataset, a new file is added for every update. The data is process and stored in the clean file folder this overwrites ecisting file in this folder.
 
-![Alt text](Docs/coding_diagram.png)
+![Coding Diagram](Docs/coding_diagram.png)
+
 
 ### Pros
 Automated Process: Airflow manages the entire pipeline, ensuring that the latest data is automatically checked and downloaded daily.
