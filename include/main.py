@@ -7,6 +7,7 @@ from tenacity import retry, stop_after_attempt,wait_exponential
 import logging
 import os
 import numpy as np
+import glob
 
 logging.basicConfig(filename='main.log',level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -158,7 +159,7 @@ def save_new_file(url,current_date_modified):
 
 # check_latest_data()
 
-import glob
+
 # process raw files
 def get_latest_raw_file():
     # Get the latest file from the raw folder based on the created date
