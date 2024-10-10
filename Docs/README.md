@@ -8,13 +8,13 @@
 * dags: contains the Airflow dag scripts to run the pipeline
 
 ## How to run
-(For simple Airflow runtime the code uses the Astro CLI)
+*This project uses the Astro CLI for running Airflow locally.*
 -- Prerequites: Must have docker installed
 
 
 - Clone this repository to your local machine
 - Create and activate a virtual environment
-- >> pip install -r requirements.txt
+- pip install -r requirements.txt
 - Create an Astro project using >> astro dev init
 - Run Airflow locally using >> astro dev start
 - Manually Trigger the dag pipeline to test
