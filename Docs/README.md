@@ -1,5 +1,12 @@
 # Petroineos
 
+## Folder Navigation:
+* Clean_Files: holds final csv of cleaned data
+* Raw_Files: holds Excel files of raw data extracted from goverment website
+* Docs: Contains documentation outlining the project and images of pipelines runs and code overview.
+* include: Contains main.py which is the python script where all of the functions where created
+* dags: contains the Airflow dag scripts to run the pipeline
+
 The project uses an Airflow pipeline that runs daily to check if the "Supply and use of crude oil, natural gas liquids, and feedstocks" file has been updated. If the file has been modified, the pipeline downloads the latest version and stores it. The updated file includes a new column for the latest quarter's data, in addition to all the previous data.
 
 ### How It Works
