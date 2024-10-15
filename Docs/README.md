@@ -34,7 +34,9 @@ Data Storage: When a new file is detected, it is downloaded and saved alongside 
 File-Based Approach: Instead of updating an existing table or dataset, a new file is added for every update. The data is process and stored in the clean file folder this overwrites ecisting file in this folder.
 
 ![Coding Diagram](coding_diagram.png)
+## Airflow Run Result
 
+![Run Result](Airflow_pipeline_run.png)
 
 ### Pros
 Automated Process: Airflow manages the entire pipeline, ensuring that the latest data is automatically checked and downloaded daily.
