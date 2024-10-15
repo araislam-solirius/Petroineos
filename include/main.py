@@ -16,13 +16,13 @@ logger = logging.getLogger(__name__)
 # get the cached last modified and file_name
 
 url = "https://www.gov.uk/government/statistics/oil-and-oil-products-section-3-energy-trends"
-cache_file = os.path.join(os.getcwd(),'cache.json')
+cache_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),'cache.json')
 
-def load_cache():
+def load_cache(cache_file=cache_file):
     """
     This function retrives the stored values for the last modifies data and latest file name from the url
     """
-    cache_file = os.path.join(os.getcwd(),'cache.json')
+    # cache_file = os.path.join(os.getcwd(),'cache.json')
     try:
         with open(cache_file,'r') as file:
             cache = json.load(file)
@@ -38,17 +38,29 @@ def load_cache():
 
 
 
-def save_cache(new_cached_last_modified,new_cached_file_name):
+def save_cache(new_cached_last_modified, new_cached_file_name, cache_file='cache.json'):
     """
-    This function will update the stored values of the last modified data and last file name from the url
+    This function updates the stored values of the last modified date and last file name from the URL
+    while preserving existing cache data.
     """
-    cache_file = os.path.join(os.getcwd(),'cache.json')
-    cache_data = {
-        'cached_last_modified' : new_cached_last_modified,
-        'cached_file_name' : new_cached_file_name
-    }
-    with open(cache_file,'w') as file:
-        json.dump(cache_data,file)
+    # Load existing cache
+    cache_data = {}
+
+    # Try to load existing cache data if the file exists
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r') as file:
+                cache_data = json.load(file)
+        except (FileNotFoundError, KeyError, ValueError) as e:
+            logger.error(f"Cache not found or malformed: {e}. Starting with an empty cache.")
+
+    # Update the cache with new values
+    cache_data['cached_last_modified'] = new_cached_last_modified
+    cache_data['cached_file_name'] = new_cached_file_name
+
+    # Save the updated cache data back to the file
+    with open(cache_file, 'w') as file:
+        json.dump(cache_data, file)
 
 
 
@@ -139,7 +151,7 @@ def save_new_file(url,current_date_modified):
 
     month_year = current_date_modified.strftime('%B %Y').replace(' ','_')
 
-    save_path = os.path.join(os.path.dirname(os.getcwd()), 'Raw_Files', "".join(['Crude_Oil_Supply_Use_ET3.1_',month_year,'.xlsx']))
+    save_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Raw_Files', "".join(['Crude_Oil_Supply_Use_ET3.1_',month_year,'.xlsx']))
 
     # Create the directory if it doesn't exist
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -163,7 +175,7 @@ def save_new_file(url,current_date_modified):
 # process raw files
 def get_latest_raw_file():
     # Get the latest file from the raw folder based on the created date
-    folder_path = os.path.join(os.path.dirname(os.getcwd()), 'Raw_Files', '*.xlsx')
+    folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Raw_Files', '*.xlsx')
     files = glob.glob(folder_path)
     return max(files,key=os.path.getctime)
 
@@ -208,7 +220,7 @@ def get_Df(new_file):
 # df = get_Df()
 
 
-def save_cleaned_file(df,file_name):
+def save_cleaned_file(df,file_name,cache_file=cache_file):
     """
     This function test if the Dataframe index and row count matchs the expected configuration, It also check that there are no missing values
 
@@ -216,13 +228,13 @@ def save_cleaned_file(df,file_name):
     """
     if df is not None:
 
-        clean_folder_path = os.path.join(os.path.dirname(os.getcwd()),'Clean_Files')
+        clean_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'Clean_Files')
         os.makedirs(clean_folder_path,exist_ok=True)
 
         index = df.index.values
 
         try:
-            with open(os.path.join(os.getcwd(),'cache.json'),'r') as file:
+            with open(cache_file,'r') as file:
                 cache = json.load(file)
                 cached_index = cache['index']
                 cached_row_count = cache["row_count"]
